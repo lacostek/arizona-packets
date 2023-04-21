@@ -33,6 +33,7 @@ enum // custom packet rpc
 	RPC_SetRadarType,
 	RPC_CreateBrowser,
 	RPC_ExecuteEvent = 17,
+	RPC_InterfaceEvent,
 	RPC_FocusBrowser = 25
 };
 
@@ -127,7 +128,7 @@ public SetFocusBrowser(playerid, browserid, toggle)
 
 public OnIncomingPacket(playerid, packetid, BitStream:bs)
 {
-	if(packetid == 220)
+	if(packetid == ID_CUSTOM_PACKET)
 	{
 		BS_IgnoreBits(bs, 8);
 		
@@ -136,7 +137,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 		BS_ReadValue(bs, PR_UINT8, custom);
 		printf("custom rpc %d", custom);
 		
-		if(custom == 18)
+		if(custom == RPC_InterfaceEvent)
 		{
 		    new lenght, data[64];
 		    
